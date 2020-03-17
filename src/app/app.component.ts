@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,19 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'todo-app';
-}
+  todoList: Array<any> = ['123', '223'];
+  todoForm: FormGroup;
+
+  
+  constructor(private fb: FormBuilder) {
+    this.todoForm = this.fb.group({
+      todoInput: ['', Validators.required]
+    });
+  }
+
+  submitTodo() {
+    this.todoList.push(this.todoForm.value.todoInput);
+    this.todoForm.reset();
+    console.log(this.todoList);
+  }
+ }
